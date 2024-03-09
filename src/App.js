@@ -7,26 +7,29 @@ const getParam = (key) => {
 }
 const getPaymentResult = () => {
   const responseCode = getParam('vnp_ResponseCode');
-  console.log('response code: ', responseCode);
-  console.log('return: ', responseCode === '00' ? true : false);
+
   return responseCode === '00' ? true : false;
 }
 function App() {
-  const [result, setResult] = useState()
+  const [result, setResult] = useState('loading')
   useEffect(() => {
-    setResult(getPaymentResult())
+    setTimeout(() => {
+      setResult(getPaymentResult())
+    }, 1000)
   }, [])
   return (
-    <>
-      {/* <img
-        style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
-        src='/images/download.png' /> */}
-      {result ? <img
-        style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
-        src='/images/download.png' /> : <img
-        style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
-        src='/images/failed.png' />}
-    </>
+    <div className='container'>
+      {result === 'loading' &&
+        <>
+          <span class="loader"></span>
+        </>
+      }
+      {
+        (result !== 'loading') && <img
+          style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
+          src={result ? '/images/download.png' : "/images/failed.png"} />
+      }
+    </div>
 
 
   );
