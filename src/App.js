@@ -7,6 +7,8 @@ const getParam = (key) => {
 }
 const getPaymentResult = () => {
   const responseCode = getParam('vnp_ResponseCode');
+  console.log('response code: ', responseCode);
+  console.log('return: ', responseCode === '00' ? true : false);
   return responseCode === '00' ? true : false;
 }
 function App() {
