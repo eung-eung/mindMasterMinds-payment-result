@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react'
 import './App.css';
 const getParam = (key) => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -12,12 +12,16 @@ const getPaymentResult = () => {
   return responseCode === '00' ? true : false;
 }
 function App() {
+  const [result, setResult] = useState()
+  useEffect(() => {
+    setResult(getPaymentResult())
+  }, [])
   return (
     <>
       {/* <img
         style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
         src='/images/download.png' /> */}
-      {getPaymentResult ? <img
+      {result ? <img
         style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
         src='/images/download.png' /> : <img
         style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
