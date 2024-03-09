@@ -19,7 +19,11 @@ const showSwal = (status) => {
     icon: status ? "success" : "error",
 
   }).then(res => {
-    window.postMessage("aaaa");
+
+    if (res.isConfirmed) {
+      console.log("aaa");
+      window.postMessage("aaaaa");
+    }
   })
 }
 function App() {
