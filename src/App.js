@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 const getParam = (key) => {
   const urlParams = new URLSearchParams(window.location.search);
   const myParam = urlParams.get(key);
@@ -10,7 +13,17 @@ const getPaymentResult = () => {
 
   return responseCode === '00' ? true : false;
 }
+const showSwal = (status) => {
+  withReactContent(Swal).fire({
+    title: status ? "Payment complete!" : "Payment failed",
+    icon: status ? "success" : "error",
+
+  }).then(res => {
+    window.postMessage("aaaa");
+  })
+}
 function App() {
+  const MySwal = withReactContent(Swal)
   const [result, setResult] = useState('loading')
   useEffect(() => {
     setTimeout(() => {
@@ -25,9 +38,7 @@ function App() {
         </>
       }
       {
-        (result !== 'loading') && <img
-          style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
-          src={result ? '/images/download.png' : "/images/failed.png"} />
+        (result !== 'loading') && showSwal(result)
       }
     </div>
 
