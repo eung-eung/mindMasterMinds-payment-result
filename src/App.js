@@ -16,8 +16,8 @@ const getPaymentResult = () => {
     var result =  responseCode === "00" ? true : false;
     console.log(result);
     try{
-      var Pay;
-      Pay.postMessage(result);
+      
+      window.Pay.postMessage(result);
     }catch(err){
       console.log(err);
     }
