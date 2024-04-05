@@ -13,7 +13,9 @@ const getParam = (key) => {
 const getPaymentResult = () => {
     const responseCode = getParam("vnp_ResponseCode");
 
-    return responseCode === "00" ? true : false;
+    var result =  responseCode === "00" ? true : false;
+    window.postMessage(result);
+    return result;
 };
 // const showSwal = (status) => {
 //     withReactContent(Swal)
