@@ -15,6 +15,7 @@ const getPaymentResult = () => {
 
     var result =  responseCode === "00" ? true : false;
     console.log(result);
+    var Pay;
     Pay.postMessage(result);
     return result;
 };
@@ -52,6 +53,7 @@ function App() {
     const [result, setResult] = useState("loading");
     useEffect(() => {
         setTimeout(() => {
+          
             setResult(getPaymentResult());
         }, 1000);
     }, []);
