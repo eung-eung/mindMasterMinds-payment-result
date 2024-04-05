@@ -15,8 +15,12 @@ const getPaymentResult = () => {
 
     var result =  responseCode === "00" ? true : false;
     console.log(result);
-    var Pay;
-    Pay.postMessage(result);
+    try{
+      var Pay;
+      Pay.postMessage(result);
+    }catch(err){
+      console.log(err);
+    }
     return result;
 };
 // const showSwal = (status) => {
