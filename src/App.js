@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
+import Lottie from "react-lottie";
+import Success from "./success.json";
+import FailRed from "./fail-red.json";
 const getParam = (key) => {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get(key);
@@ -13,23 +15,37 @@ const getPaymentResult = () => {
 
     return responseCode === "00" ? true : false;
 };
-const showSwal = (status) => {
-    withReactContent(Swal)
-        .fire({
-            title: status ? "Payment complete!" : "Payment failed",
-            icon: status ? "success" : "error",
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-        })
-        .then((res) => {
-            if (res.isConfirmed) {
-                window.postMessage("aaaaa");
-            }
-        });
-};
+// const showSwal = (status) => {
+//     withReactContent(Swal)
+//         .fire({
+//             title: status ? "Payment complete!" : "Payment failed",
+//             icon: status ? "success" : "error",
+//             allowOutsideClick: false,
+//             allowEscapeKey: false,
+//             allowEnterKey: false,
+//         })
+//         .then((res) => {
+//             if (res.isConfirmed) {
+//                 window.postMessage("aaaaa");
+//             }
+//         });
+// };
 function App() {
-    const MySwal = withReactContent(Swal);
+    const defaultOptions = {
+        loop: false,
+        autoplay: true,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+    const successOptions = {
+        ...defaultOptions,
+        animationData: Success,
+    };
+    const failOptions = {
+      ...defaultOptions,
+      animationData: FailRed,
+  };
     const [result, setResult] = useState("loading");
     useEffect(() => {
         setTimeout(() => {
@@ -43,7 +59,12 @@ function App() {
                     <span className="loader"></span>
                 </>
             )}
-            {result !== "loading" && showSwal(result)}
+            {result !== "loading" &&
+                (result ? (
+                    <Lottie options={successOptions} height={400} width={400} />
+                ) : (
+                    <Lottie options={failOptions} height={400} width={400} />
+                ))}
         </div>
     );
 }
